@@ -9,7 +9,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container  :인스타데이터="인스타데이터" />
+  <Container  :게시물="게시물" />
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -21,13 +21,13 @@
 
 <script>
 import Container from './components/Container';
-import instaData from './assets/postingData.js';
+import postingData from './assets/postingData.js';
 
 export default {
   name: 'App',
   data(){
     return {
-      인스타데이터 : instaData,
+      게시물 : postingData,
     }
   },
   components: {
