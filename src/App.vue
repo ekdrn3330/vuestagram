@@ -1,37 +1,77 @@
 <template>
+
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="step = 0">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">발행</li>
     </ul>
-    <img src="./assets/logo.png" class="logo" />
+    <img @click="step = 0" src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container  :게시물="게시물" />
+  <Container  :게시물="게시물" :step="step" :이미지="이미지" @write="작성한글 = $event" />
+
+  <div class="moreBtnBox"><button @click="more" class="moreBtn">더보기</button></div>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
+
 </template>
 
 <script>
 import Container from './components/Container';
 import postingData from './assets/postingData.js';
+import axios from 'axios';
 
 export default {
   name: 'App',
   data(){
     return {
       게시물 : postingData,
+      더보기 : 0,
+      step : 0,
+      이미지 : '',
     }
   },
   components: {
     Container,
+  },
+  methods: {
+    more(){
+      axios.get(`https://codingapple1.github.io/vue/more${this.더보기}.json`)
+      .then( 결과 => {
+        this.게시물.push(결과.data);
+        this.더보기 ++;
+      })
+    },
+    upload(e){
+      let 파일 = e.target.files;
+      console.log(파일[0]);
+      let url = URL.createObjectURL(파일[0]);
+      console.log(url);
+      this.이미지 = url;
+      this.step++;
+    },
+    publish(){
+      var 내게시물 = {
+      name: "Kim JinHyeok",
+      userImage: "https://placeimg.com/100/100/arch",
+      postImage: this.이미지,
+      likes: 36,
+      date: "May 15",
+      liked: false,
+      content: this.작성한글,
+      filter: "perpetua"
+    };
+      this.게시물.unshift(내게시물);
+      this.step = 0;
+    }
   }
 }
 </script>
@@ -52,6 +92,7 @@ ul {
   left: 0;
   right: 0;
   top: 13px;
+  cursor:pointer;
 }
 .header {
   width: 100%;
@@ -75,6 +116,19 @@ ul {
   width: 50px;
   cursor: pointer;
   margin-top: 10px;
+}
+.moreBtnBox {
+  width:100%;
+  text-align:center;
+}
+.moreBtnBox .moreBtn {
+  background:green;
+  color:#fff;
+  border:0;
+  font-weight:bold;
+  padding:10px 20px;
+  border-radius:5px;
+  cursor:pointer;
 }
 .footer {
   width: 100%;
