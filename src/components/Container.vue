@@ -1,20 +1,22 @@
 <template>
   <div>
     <div v-if="step == 0">
-        <Post :게시물="게시물[i]" v-for="(a,i) in 게시물" :key="i" />
+        <Post :게시물="게시물[i]" v-for="(a,i) in 게시물" :key="i" :i="i" />
     </div>
       
     <div v-if="step == 1">
-        <div class="upload-image" :style="`background-image: url(${이미지})`"></div>
+        <div class="upload-image" :class="누른필터" :style="`background-image: url(${이미지})`"></div>
         <div class="filters">
-            <FilterBox v-for="i in 필터들" :key="i" :이미지="이미지" ></FilterBox>
+            <FilterBox v-for="i in 필터들" :key="i" :이미지="이미지" :필터이름="i" >
+                <span class="filter-name" @click="fire">{{ i }}</span>
+            </FilterBox>
         </div>
     </div>
 
     <div v-if="step == 2">
-        <div class="upload-image" :style="`background-image: url(${이미지})`"></div>
+        <div class="upload-image" :class="누른필터" :style="`background-image: url(${이미지})`"></div>
         <div class="write">
-            <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
+            <textarea @input="$emit('write', $event.target.value)" class="write-box">글을 남겨보세요!</textarea>
         </div>
     </div>
 
@@ -41,6 +43,7 @@ export default {
         게시물 : Array,
         step : Number,
         이미지 : String,
+        누른필터 : String,
     }
 }
 </script>

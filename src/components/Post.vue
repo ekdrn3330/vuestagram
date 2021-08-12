@@ -4,9 +4,9 @@
       <div class="profile" :style="{ backgroundImage : `url(${게시물.userImage})` }"></div>
       <span class="profile-name">{{ 게시물.name }}</span>
     </div>
-    <div class="post-body" :style="{ backgroundImage : `url(${게시물.postImage})` }"></div>
+    <div @click="$store.commit('좋아요증가', i)" class="post-body" :class="게시물.filter" :style="{ backgroundImage : `url(${게시물.postImage})` }"></div>
     <div class="post-content">
-      <p>{{ 게시물.likes }} Likes</p>
+      <p>{{ $store.state.likes[i] }} Likes</p>
       <p><strong>{{ 게시물.name }}</strong> {{ 게시물.content }}</p>
       <p class="date">{{ 게시물.date }}</p>
     </div>
@@ -23,7 +23,8 @@ export default {
     },
     props: {
         게시물 : Object,
-    }
+        i : Number,
+    },
 }
 </script>
 
@@ -55,6 +56,7 @@ export default {
   height: 450px;
   background-position: center;
   background-size: cover;
+  cursor: pointer;
 }
 .post-content {
   padding-left: 15px;
