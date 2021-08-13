@@ -11,7 +11,7 @@
     <img @click="step = 0" src="./assets/logo.png" class="logo" />
   </div>
 
-  <p>{{내이름}} {{age}} {{likes}}</p>
+  <!-- <p>{{내이름}} {{age}} {{likes}}</p>
 
   <h4>안녕 {{ $store.state.name }}</h4>
   <button @click="$store.commit('이름변경')">이름변경</button>
@@ -19,7 +19,7 @@
   <button @click="나이변경(10)">나이증가</button>
 
   <p>{{ $store.state.more }}</p>
-  <button @click="$store.dispatch('getData')">더보기버튼</button>
+  <button @click="$store.dispatch('getData')">더보기버튼</button> -->
 
   <Container :누른필터="누른필터"  :게시물="게시물" :step="step" :이미지="이미지" @write="작성한글 = $event" />
 
@@ -46,7 +46,7 @@ export default {
     return {
       게시물 : postingData,
       더보기 : 0,
-      step : 0,
+      step : 3,
       이미지 : '',
       누른필터 : '',
       카운터 : 0,

@@ -20,6 +20,10 @@
         </div>
     </div>
 
+    <div v-if="step ==3">
+        <MyPage :one="1" />
+    </div>
+
   </div>
 </template>
 
@@ -27,6 +31,7 @@
 import Post from './Post';
 import FilterBox from './FilterBox';
 import filterName from '../assets/filterName.js';
+import MyPage from './MyPage';
 
 export default {
     name: 'Container',
@@ -38,6 +43,7 @@ export default {
     components: {
         Post,
         FilterBox,
+        MyPage,
     },
     props: {
         게시물 : Array,
